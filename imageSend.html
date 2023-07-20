@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>Upload Image</title>
+</head>
+<body>
+
+<input id="imageInput" type="file" name="file" id="image">
+<button onclick="createImage()">click</button>
+<p id="res"></p>
+<script>
+	const imageEndpoint = "http://127.0.0.1:8000/"
+	const imageInput = document.querySelector('#imageInput')
+
+	const createImage = async () => {
+		let file= imageInput.files[0]
+		const formData = new FormData();
+		formData.append('image',file, file.name);
+		fetch(imageEndpoint, { method:'POST', headers: {
+			'Accept': 'application/json',
+			
+			
+			},
+			body: formData
+			})
+			.then(r=> r.text().then(t=>console.log(document.querySelector("#res").innerHTML = t)))
+	}
+</script>
+</body>
+</html>
